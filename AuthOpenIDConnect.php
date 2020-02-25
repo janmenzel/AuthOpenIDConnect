@@ -59,7 +59,7 @@
             $redirectURL = $this->get('redirectURL', null, null, false);
 
             if(!$providerURL || !$clientSecret || !$clientID || !$redirectURL){
-                // Display authdb login if necessary plugin settings are missing.
+                Yii::app()->setFlashMessage(gT('Necessary AuthOpenIDConnect settings are missing. Please contact your administrator.'), 'error');
                 return;
             }
 
@@ -89,7 +89,7 @@
                         $user->email = $email;
         
                         if(!$user->save()){
-                            // Couldn't create user, navigate to authdb login.
+                            Yii::app()->setFlashMessage(gT('New user couldn\'t be created.'), 'error');
                             return;
                         }
                         // User successfully created.
@@ -100,10 +100,9 @@
                     return;
                 }
             } catch (\Throwable $error) {
-                // Error occurred during authentication process, redirect to authdb login.
+                Yii::app()->setFlashMessage(gT('An error occurred during the authentication process.'), 'error');
                 return;
             }
-            
         }
         
         public function newUserSession(){
