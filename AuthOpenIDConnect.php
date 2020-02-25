@@ -122,7 +122,7 @@
         }
 
         public function afterLogout(){
-            Yii::app()->getRequest()->redirect('/', true, 302);
+            Yii::app()->getRequest()->redirect('/');
         }
     }
 ?>
